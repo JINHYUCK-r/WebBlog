@@ -18,6 +18,7 @@ public class HttpControllerTest {
 	
 	private static final String TAG = "HttpControllerTest : ";
 	
+	//    localhost:8000/blog//http/lombok  yml파일에서 server설정을 바꾸어주었기때문에 주소이름이 바뀜 
 	@GetMapping("/http/lombok")
 	public String lombokTest() {
 		//Member m= new Member(1,"ssar","123","ssar@nate.com");
