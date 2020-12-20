@@ -1,4 +1,5 @@
 package com.rjh.blog.model;
+//테이블을 생성하기위한 모델 만들것 
 
 import java.sql.Timestamp;
 
@@ -11,7 +12,18 @@ import javax.persistence.Id;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
-//테이블을 생성하기위한 모델 만들것 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+//ORM ->Java(다른언어) Object -> 테이블로 매핑해주는 기술 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder  //빌더패턴
 
 @Entity //User클래스를 통해서 내용을 읽어서 Mysql에 테이블이 생성됨
 public class User {

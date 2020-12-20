@@ -27,11 +27,14 @@ spring:
 #최초에는 create로 설정해서 테이블이 만들어 지도록 해놓고 나중에는 update로 바꾸어야함. 그렇지 않으면 실행할때마다 테이블이 새로 생성됨 
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#엔티티(테이블)을 만들때 변수명 그대로 테이블필드를 만들어줌 / 이 전략이 아닌 springPhysical 전략을 쓰면 커멜표기법에 변환이 생김 ex)myEmail ->my_email
       use-new-id-generator-mappings: false 
 #false로 하면 jap가 사용하는 기본 넘버링 전략을 따라가지 않겠다고 하는것 
     show-sql: true
+#콘솔창에서 테이블이 만들어지는 코드를 볼수있음 
     properties:
       hibernate.format_sql: true
+#show-sql은 한줄로 코드를 보여주는데 이것을 true로 설정해놓으면 보기좋게 정렬해줌 
 
   jackson:
     serialization:
