@@ -24,9 +24,11 @@ spring:
     open-in-view: true
     hibernate:
       ddl-auto: create
+#최초에는 create로 설정해서 테이블이 만들어 지도록 해놓고 나중에는 update로 바꾸어야함. 그렇지 않으면 실행할때마다 테이블이 새로 생성됨 
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      use-new-id-generator-mappings: false
+      use-new-id-generator-mappings: false 
+#false로 하면 jap가 사용하는 기본 넘버링 전략을 따라가지 않겠다고 하는것 
     show-sql: true
     properties:
       hibernate.format_sql: true
