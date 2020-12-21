@@ -3,6 +3,8 @@ package com.rjh.blog.test;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rjh.blog.model.RoleType;
@@ -71,19 +75,44 @@ public class DummyControllerTest {
 	}
 	
 	//http://localhost:8000/blog/dummy/user/
-	@GetMapping("/dummy/users")
+	@GetMapping("/dummy/users") //모든 유저정보받아오기 
 	public List<User> list(){
 		return userRepository.findAll();
 		
 	}
 	
-	// 한페이지당 2건에 데이터를 리턴
+	// 한페이지당 2건에 유저 데이터를 리턴
 	// http://localhost:8000/blog/dummy/user?page=0  첫페이지 
 	@GetMapping("dummy/user")
 	public List<User> pageList(@PageableDefault(size=2,sort="id", direction = Sort.Direction.DESC) Pageable pageable){
 													//페이징 전략: 2개씩, id를 기준으로 정렬, 최신순으로 
-		List<User> users = userRepository.findAll(pageable).getContent();
+		Page<User> pagingUsers = userRepository.findAll(pageable); //세세한 정보들이 들어있음 
+		List<User> users = pagingUsers.getContent();
 		return users;
+		
+	}
+	
+	//email, password를 받아서 수정 
+	@PutMapping("/dummy/user/{id}") //주소가 detail이랑 같지만 요청하는 방법이 다르기때문에 구분됨 
+	@Transactional //Transactional을 쓰면 save를 사용하지 않아도됨.  함수 종료시에 자동으로 commit이 됨/.commit이 될때 영속화 된 변경된 값이 새로 적용됨   
+	public User updateUser(@PathVariable int id, @RequestBody User requestUser) { //json을 받아서 java로 변환해서 받음 (MessageConverter의 Jackson 라이브러리)
+		System.out.println("id: " + id);
+		System.out.println("password: " + requestUser.getPassword());
+		System.out.println("email: " + requestUser.getEmail());
+		
+		
+		User user = userRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("수정에 실패하였습니다.");
+		});
+		user.setPassword(requestUser.getPassword());
+		user.setEmail(requestUser.getEmail());
+		//userRepository.save(user); //save 는 주로 Insert 할때 쓰기때문에 update할때 쓰면 값이 변경되지 않는 것은 null로 입력될수 있기때문에 쓰고 싶다면 user정보를 모두 불러와 입력부분만 변경하고 유저정보를 다시 넣어주어야함.
+		//save 함수는 id를 전달하지 않으면 insert, id를 전달하여 해당 id에 데이터가 있으면 update, 해당 id에 대한 데이터가 없으면 insert
+		
+		
+		//더티 체킹
+		
+		return null;
 		
 	}
 	
