@@ -40,6 +40,7 @@ public class Reply {
 	@JoinColumn(name="userId")
 	private User user;
 	
+	
 	@CreationTimestamp
 	private Timestamp createDate;
 	
