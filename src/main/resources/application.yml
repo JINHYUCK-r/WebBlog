@@ -23,7 +23,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 #최초에는 create로 설정해서 테이블이 만들어 지도록 해놓고 나중에는 update로 바꾸어야함. 그렇지 않으면 실행할때마다 테이블이 새로 생성됨 
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
