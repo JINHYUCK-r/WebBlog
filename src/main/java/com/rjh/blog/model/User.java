@@ -5,12 +5,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Builder  //빌더패턴
 
 @Entity //User클래스를 통해서 내용을 읽어서 Mysql에 테이블이 생성됨
+//@DynamicInsert //insert 할때 null인 필드 제외. 지금은 사용하지 않고 만들어보기 
 public class User {
 	
 	@Id //primary key
@@ -43,9 +47,13 @@ public class User {
 	@Column(nullable = false, length =50)
 	private String email;
 	
-	@ColumnDefault("'user'") // 쓸때 ' ' 를 붙여서 문자라는 것을 알려줘야함 
-	private String role; //정확히 할때는 Enum을 쓰는게 좋다. // Admin, user, manage 등의 권한// Enum을 쓰면 쓸수 있는 도메인을 한정시킬수 있음
-
+	//@ColumnDefault("'user'") // 쓸때 ' ' 를 붙여서 문자라는 것을 알려줘야함 . 기본값을 user로 적는데 insert할때 비워져 있지 않으면 Null로 입력됨 
+	//private String role; //정확히 할때는 Enum을 쓰는게 좋다. // Admin, user, manage 등의 권한// Enum을 쓰면 쓸수 있는 도메인을 한정시킬수 있음
+	
+	//DynamicInsert사용하지않고 값을 넣기 
+	@Enumerated(EnumType.STRING) // db는 RoleType이라는게 없기 때문에 해당 enum이 string이라고 알려주어야함.
+	private RoleType role; //ADMIN, USER로 한정지음  
+	
 	@CreationTimestamp // 시간이 자동입력 
 	private Timestamp createDate;
 }
