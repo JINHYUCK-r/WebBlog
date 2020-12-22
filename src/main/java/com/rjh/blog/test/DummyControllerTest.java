@@ -97,7 +97,7 @@ public class DummyControllerTest {
 	//email, password를 받아서 수정  //DB update
 	@PutMapping("/dummy/user/{id}") //주소가 detail이랑 같지만 요청하는 방법이 다르기때문에 구분됨 
 	@Transactional //Transactional을 쓰면 save를 사용하지 않아도됨.  함수 종료시에 자동으로 commit이 됨/.commit이 될때 영속화 된 변경된 값이 새로 적용됨   
-	public User updateUser(@PathVariable int id, @RequestBody User requestUser) { //json을 받아서 java로 변환해서 받음 (MessageConverter의 Jackson 라이브러리)
+	public User updateUser(@PathVariable int id, @RequestBody User requestUser) { // @RequestBody가 json을 받아서 java로 변환해서 받음 (MessageConverter의 Jackson 라이브러리)
 		System.out.println("id: " + id);
 		System.out.println("password: " + requestUser.getPassword());
 		System.out.println("email: " + requestUser.getEmail());
