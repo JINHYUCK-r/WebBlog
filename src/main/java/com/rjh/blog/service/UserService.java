@@ -19,14 +19,7 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Transactional //전체가 성공하면 commit이 됨.  하나라도 실패하게 되면 rollback 이 됨 . 
-	public int Join(User user) {
-		try{
-			userRepository.save(user);
-			return 1;
-		}catch(Exception e){
-			e.printStackTrace();
-			System.out.println("UserServie: Join(): " + e.getMessage());
-		}
-		return -1;
+	public void Join(User user) {
+		userRepository.save(user); //오류가 발생하면 handler에서 오류처리됨 
 	}
 }

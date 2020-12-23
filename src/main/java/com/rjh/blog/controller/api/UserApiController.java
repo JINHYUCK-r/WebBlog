@@ -24,7 +24,7 @@ public class UserApiController {
 		//System.out.println("UserApiController : save 호출 ");
 		//실제로 DB에 Insert 구현 
 		user.setRole(RoleType.USER);
-		int result = userService.Join(user);
-		return new ResponseDto<Integer>(HttpStatus.OK, result); //date:1, status: 200 을 반환 / 자바오브젝트를 json으로 변환해서 리턴(jackson)
+		userService.Join(user);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); //date:1, status: 200 을 반환 / 자바오브젝트를 json으로 변환해서 리턴(jackson)
 	}
 }
