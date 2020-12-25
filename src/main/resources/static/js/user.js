@@ -10,30 +10,6 @@ let index = {
         });
     },
 
-    login : function(){
-        
-	let data = {		
-		username: $("#username").val(),
-		password: $("#password").val(),
-	};
-	
-	$.ajax({
-
-		type:"POST", //get방식으로 할경우 주소에 id와 password가 남기때문에 위험 
-		url:"/blog/api/user/login",
-		data: JSON.stringify(data), 
-		contentType: "application/json; charset=utf-8", 
-		dataType:"json" 
-		
-	}).done(function(resp){	
-		alert("로그인이  완료 되었습니다.");
-		location.href = "/blog" 
-	}).fail(function(error){
- 
-		alert(JSON.stringify(error));
-	}); 
-    },
-
   save : function(){
         //alert('user의 save함수 호출됨');	
 	let data = {		//각 값을 찾아서 data 오브젝트에 넣음 
@@ -50,7 +26,7 @@ let index = {
 	$.ajax({
 		//회원가입 수행요청 
 		type:"POST",
-		url:"/blog/api/user",
+		url:"/api/user",
 		data: JSON.stringify(data), //위에서 만든 data는 자바스크립트 객체라서 자바가 이해할수 있도록 json으로 바꾸어 주어야함 // http body 데이터 
 		contentType: "application/json; charset=utf-8", //body 데이터가 어떤 타입인지 (MIME)
 		dataType:"json" //응답. 요청을 서버로해서 응답이 왔을때 기본적으로 모든것이 string (생긴것이 json이라면 javascript 형태로 바꾸어줌 )
@@ -59,9 +35,32 @@ let index = {
 		//정상이면 이부분이 실행 
 		alert("회원가입이 완료 되었습니다.");
 		//console.log(resp);
-		location.href = "/blog" //메인화면으로 이동 
+		location.href = "/" //메인화면으로 이동 
 	}).fail(function(error){
 		//실패면 이 부분이 실행 
+		alert(JSON.stringify(error));
+	}); 
+    },
+ login : function(){
+        
+	let data = {		
+		username: $("#username").val(),
+		password: $("#password").val(),
+	};
+	
+	$.ajax({
+
+		type:"POST", //get방식으로 할경우 주소에 id와 password가 남기때문에 위험 
+		url:"/api/user/login",
+		data: JSON.stringify(data), 
+		contentType: "application/json; charset=utf-8", 
+		dataType:"json" 
+		
+	}).done(function(resp){	
+		alert("로그인이  완료 되었습니다.");
+		location.href = "/" 
+	}).fail(function(error){
+ 
 		alert(JSON.stringify(error));
 	}); 
     }
