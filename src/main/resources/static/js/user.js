@@ -4,9 +4,37 @@ let index = {
 													//function(){}를 쓰지 않고 ()=> {}  화살표 함수를 쓴것은 this를 바인딩하기 위해서  
             this.save();
         });
+        $("#btn-login").on("click",()=>{ 
+													
+            this.login();
+        });
     },
 
-    save : function(){
+    login : function(){
+        
+	let data = {		
+		username: $("#username").val(),
+		password: $("#password").val(),
+	};
+	
+	$.ajax({
+
+		type:"POST", //get방식으로 할경우 주소에 id와 password가 남기때문에 위험 
+		url:"/blog/api/user/login",
+		data: JSON.stringify(data), 
+		contentType: "application/json; charset=utf-8", 
+		dataType:"json" 
+		
+	}).done(function(resp){	
+		alert("로그인이  완료 되었습니다.");
+		location.href = "/blog" 
+	}).fail(function(error){
+ 
+		alert(JSON.stringify(error));
+	}); 
+    },
+
+  save : function(){
         //alert('user의 save함수 호출됨');	
 	let data = {		//각 값을 찾아서 data 오브젝트에 넣음 
 		username: $("#username").val(),
