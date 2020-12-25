@@ -47,7 +47,7 @@ public class Board {
 
 	//private int userId; //ORM에서는 이렇게 적고 조인해서 사용하지 않음
 	
-	@ManyToOne//연관관계. Board가 Many 고 User 가 One . 기본 fetch전략이 eager 
+	@ManyToOne//연관관계. Board가 Many 고 User 가 One . 기본 fetch전략이 eager-> board가 사용될때 같이 불러와짐. 
 	//한명의 유저는 여러개의 게시글을 쓸수 있음 
 	@JoinColumn(name="userId") //userId라는 필드값으로 생성됨 
 	private User user; //DB는 오브젝트를 저장할수 없다. FK(Foreign key)를 사용. 자바는 오브젝트를 저장할수 있다. 자바가 DB에 맞춰야함

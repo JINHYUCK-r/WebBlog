@@ -1,5 +1,5 @@
 package com.rjh.blog.controller.api;
-
+// json 데이터를 전달하는 컨트롤러 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

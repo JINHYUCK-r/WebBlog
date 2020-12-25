@@ -22,6 +22,7 @@ spring:
     
   jpa:
     open-in-view: true
+#true를 false로 바꾸면 영속성 컨텍스트가 service시점에서 종료됨. 컨트롤러에서 lazy로딩을 할수없음   
     hibernate:
       ddl-auto: update
 #최초에는 create로 설정해서 테이블이 만들어 지도록 해놓고 나중에는 update로 바꾸어야함. 그렇지 않으면 실행할때마다 테이블이 새로 생성됨 

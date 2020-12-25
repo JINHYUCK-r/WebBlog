@@ -1,4 +1,5 @@
 package com.rjh.blog.controller;
+//html을 전달하는 컨트롤러 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
