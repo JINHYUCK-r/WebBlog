@@ -23,8 +23,8 @@ public class UserService {
 	public void Join(User user) {
 		userRepository.save(user); //오류가 발생하면 handler에서 오류처리됨 
 	}
-	@Transactional(readOnly = true) //select 할때 트랜잭션 시작, 서비스 종료시에 트랜잭션 종료(정합성 유지)
-	public User login(User user) {
-		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-	}
+//	@Transactional(readOnly = true) //select 할때 트랜잭션 시작, 서비스 종료시에 트랜잭션 종료(정합성 유지)
+//	public User login(User user) {
+//		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+//	}
 }

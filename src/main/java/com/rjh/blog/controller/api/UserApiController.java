@@ -21,10 +21,10 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private HttpSession session;
+//	@Autowired 이렇게 세션을 할당해서 전통적로그인 방식에 넣을수 있음. 파라미터를 할당하지 않고  
+//	private HttpSession session;
 
-	@PostMapping("/api/user")
+	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) { //username, password, email 3가지를 받음 
 		//System.out.println("UserApiController : save 호출 ");
 		//실제로 DB에 Insert 구현 
@@ -35,8 +35,10 @@ public class UserApiController {
 	
 	//스프링 시큐리티 이용해서 로그인 만들기
 	
+  /*	
+// 전통적인 방식의 로그인 
 	@PostMapping("/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User user){
+	public ResponseDto<Integer> login(@RequestBody User user, {HttpSession session//세션을 파라미터로 할당시 autowired를 안써도됨}){
 		//System.out.println("UserApiController : login 호출 ");
 		User pricipal = userService.login(user); // pricipal(접근주)
 		
@@ -46,5 +48,6 @@ public class UserApiController {
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
 	}
+	*/
 	
 }

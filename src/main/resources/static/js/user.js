@@ -4,10 +4,12 @@ let index = {
 													//function(){}를 쓰지 않고 ()=> {}  화살표 함수를 쓴것은 this를 바인딩하기 위해서  
             this.save();
         });
+/*
         $("#btn-login").on("click",()=>{ 
 													
             this.login();
         });
+*/
     },
 
   save : function(){
@@ -26,7 +28,7 @@ let index = {
 	$.ajax({
 		//회원가입 수행요청 
 		type:"POST",
-		url:"/api/user",
+		url:"/auth/joinProc",
 		data: JSON.stringify(data), //위에서 만든 data는 자바스크립트 객체라서 자바가 이해할수 있도록 json으로 바꾸어 주어야함 // http body 데이터 
 		contentType: "application/json; charset=utf-8", //body 데이터가 어떤 타입인지 (MIME)
 		dataType:"json" //응답. 요청을 서버로해서 응답이 왔을때 기본적으로 모든것이 string (생긴것이 json이라면 javascript 형태로 바꾸어줌 )
@@ -40,7 +42,8 @@ let index = {
 		//실패면 이 부분이 실행 
 		alert(JSON.stringify(error));
 	}); 
-    },
+    }
+/*
  login : function(){
         
 	let data = {		
@@ -64,5 +67,6 @@ let index = {
 		alert(JSON.stringify(error));
 	}); 
     }
+*/
 }
 index.init();

@@ -20,11 +20,11 @@
 
 	<dependencies>
 	<!-- 추가 라이브러리 시작 -->
-		<!-- 시큐리티 태그 라이브러리 -->
-<!-- 	<dependency>
+		<!-- 시큐리티 태그 라이브러리  jsp에서 시큐리티를 쓰기위한 태그라이브러리  -->
+	<dependency>
 	  <groupId>org.springframework.security</groupId>
 	  <artifactId>spring-security-taglibs</artifactId>
-	</dependency> -->
+	</dependency> 
 	
 	<!-- JSP 템플릿 엔진 -->
 	<!--스프링부트는 기본적으로  jsp를 지원하지않기 때문에 인식시키기위해 따로 설정필요  -->
@@ -43,10 +43,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-	<!-- 	<dependency>
+		
+		<!--  시큐리티를 쓰게되면 홈페이지에 접근하려고 할때 무조건 로그인이 필요함. 처음에 들어갈때 id:user/pw: 콘솔에 찍히는걸 넣으면 접속가능 . 그 후에 세션이 생성되어서 자동로그인 됨 -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
+		</dependency> 
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
