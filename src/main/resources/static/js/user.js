@@ -32,6 +32,7 @@ let index = {
 		data: JSON.stringify(data), //위에서 만든 data는 자바스크립트 객체라서 자바가 이해할수 있도록 json으로 바꾸어 주어야함 // http body 데이터 
 		contentType: "application/json; charset=utf-8", //body 데이터가 어떤 타입인지 (MIME)
 		dataType:"json" //응답. 요청을 서버로해서 응답이 왔을때 기본적으로 모든것이 string (생긴것이 json이라면 javascript 형태로 바꾸어줌 )
+		//이렇게 데이터를 변환해서 할때 csrf 토큰이 생성되지 않기 때문에 스프링 시큐리티가 접근을 막을수 있다. 테스트 시에는 csrf를 비활성화 하면 된다. 
 		
 	}).done(function(resp){	//resp	에 UserApicontroller의 save함수의 리턴값 1이 담기게 된다. 
 		//정상이면 이부분이 실행 

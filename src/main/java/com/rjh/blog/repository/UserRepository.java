@@ -1,9 +1,12 @@
 package com.rjh.blog.repository;
+import java.util.Optional;
+
 //db에 값을 insert 하기 위한 패키지 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.rjh.blog.model.User;
+
 
 //DAO같은 역할 . 자동으로 bean으로 등록됨. @Repository 생략가능 
 public interface UserRepository extends JpaRepository<User, Integer>{
@@ -21,5 +24,6 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 //	@Query(value="select *from user Where username=? and password=?", nativeQuery = true)
 //	User login(String usename, String password);
 	
+	Optional<User> findByUsername(String username); //select * from user where username =?; / findBy~~ 규칙. by뒤에는 꼭 대문자 where절에 나오는것  
 	
 }

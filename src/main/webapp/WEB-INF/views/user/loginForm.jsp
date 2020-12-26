@@ -2,7 +2,8 @@
 <%@ include file="../layout/header.jsp"%>
 <div class="container">
 
-	<form action="#" method="post" >
+<!--/auth/loginProc 를 만들지 않아도 스프링 시큐리티가 주소를 가로챔   -->
+	<form action="/auth/loginProc" method="post" >
 		
 			<div class="form-group">
 			<label for="username">Username</label> 
@@ -20,6 +21,7 @@
 			<input class="form-check-input" name="remember" type="checkbox"> Remember me
 			</label>
 		</div>
+		
 		<button id="btn-login" class="btn btn-primary">로그인</button>
 	</form>
 </div>
