@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 // json 데이터를 전달하는 컨트롤러 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,12 +24,11 @@ public class UserApiController {
 	
 //	@Autowired 이렇게 세션을 할당해서 전통적로그인 방식에 넣을수 있음. 파라미터를 할당하지 않고  
 //	private HttpSession session;
-
+	
 	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) { //username, password, email 3가지를 받음 
 		//System.out.println("UserApiController : save 호출 ");
 		//실제로 DB에 Insert 구현 
-		user.setRole(RoleType.USER);
 		userService.Join(user);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); //date:1, status: 200 을 반환 / 자바오브젝트를 json으로 변환해서 리턴(jackson)
 	}

@@ -1,10 +1,12 @@
 package com.rjh.blog.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Configuration //Bean 등록: 스프링 컨테이너에서 객체를 관리 할수 있게 하는 것(IoC관리 )
@@ -14,11 +16,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	//  이 객체를 통해서 해시암호화가 됨 
+	@Bean //Ioc 리턴되는 값을 스프링이 관리함 
+	public BCryptPasswordEncoder encodePWD() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.csrf().disable() // csrf 토큰 비 활성화 (테스트시 걸어두는게 좋음 )
 			.authorizeRequests()			//요청이 들어오면 
-				.antMatchers("/auth/**")	// /auth 이하 주소는 
+				.antMatchers("/","/auth/**", "/js/**","/css/**","image/**")	// /auth 이하 주소는 
 				.permitAll()							//모두 접근이 가능
 				.anyRequest()					//그외의 다른 모든 요청
 				.authenticated()				//인증이 필요해 
