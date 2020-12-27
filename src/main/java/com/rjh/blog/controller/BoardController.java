@@ -12,10 +12,16 @@ public class BoardController {
 
 	@GetMapping({"","/"})
 	//@AuthenticationPrincipal : security core로 임포트.  
-	//@AuthenticationPrincipal principalDetail principal 이것을 이용하여 세션에 접근가능 
-	public String index(@AuthenticationPrincipal principalDetail principal) { 
+	//@AuthenticationPrincipal principalDetail principal 이것을 파람에 넣어서  세션에 접근가능 
+	public String index() { 
 		// /WEB-INF/views/index.jsp 로 찾게됨 
-		System.out.println("로그인 사용자 아이디: "+ principal.getUsername());
+		//System.out.println("로그인 사용자 아이디: "+ principal.getUsername());
 		return "index";
+	}
+	
+	//USER 권한 필요
+	@GetMapping("/board/saveForm")
+	public String saveForm() {
+		return "board/saveForm";
 	}
 }
