@@ -38,5 +38,12 @@ public class BoardService {
 	public Page<Board> readList(Pageable pageable ){ //page를 리턴해서 page에 들어있는 정보를 활용 
 		return boardRepository.findAll(pageable);
 	}
+	
+	public Board readDetail(int id) {
+		return boardRepository.findById(id)
+				.orElseThrow(() ->{
+					return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을수 없습니다. ");
+				});
+	}
 
 }
