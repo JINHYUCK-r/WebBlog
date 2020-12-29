@@ -18,7 +18,7 @@ public class principalDetail implements UserDetails {
 
 	//생성자
 	public principalDetail(User user) {
-		this.user = user;
+		this.user = user; 
 	}
 	
 	//UserDetails에 있는 함수들을 전부 오버라이딩 
