@@ -6,8 +6,10 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-
-
+ #절대 공개되어서는 안될 OAuth로그인을위한 키      
+rjh:
+  key: rjh1234
+  
 spring:
   mvc:
     view:

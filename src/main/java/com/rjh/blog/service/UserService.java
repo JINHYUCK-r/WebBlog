@@ -28,6 +28,14 @@ public class UserService {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
+	@Transactional(readOnly = true)
+	public User findUser(String username) {
+		
+		User user = userRepository.findByUsername(username).orElseGet(()->{
+			return new User();
+		});
+		return user;
+	}
 
 	@Transactional //전체가 성공하면 commit이 됨.  하나라도 실패하게 되면 rollback 이 됨 . 
 	public void Join(User user) {
@@ -46,10 +54,14 @@ public class UserService {
 		User persistance = userRepository.findById(user.getId()).orElseThrow(()->{
 			return new IllegalArgumentException("회원찾기실패");
 		});
-		String rawPassword = user.getPassword();
-		String encPassword = encoder.encode(rawPassword);
-		persistance.setPassword(encPassword);
-		persistance.setEmail(user.getEmail());
+		//Validate 체크 ->oauth 로 가입한 사람은 비밀번호와 이메일을 바꿀수 없음 . post 공격 막음 
+		if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
+			String rawPassword = user.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			persistance.setPassword(encPassword);			
+			persistance.setEmail(user.getEmail());
+		}
+		
 		
 		//회원수정 함수 종료시 = 서비스 종료시 = 트랜잭션이 종료 = commit 이 자동으로 됨 
 		//영속화된 persistance 객체의 변화가 감지되면 더티체킹이 되어 update문을 날려줌 

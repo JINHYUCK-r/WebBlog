@@ -37,8 +37,8 @@ public class User {
 	//오라클을 사용하면 시퀀스가 되는거고, mysql을 사용하면 auto-increment가 되는것 
 	private int id; //auto_increment 할것 
 	
-	@Column(nullable = false, length =30, unique = true)
-	// 널이 될수없음, 아이디의 길이를 30자 이하로 제한 
+	@Column(nullable = false, length =100, unique = true)
+	// 널이 될수없음, 아이디의 길이를 100자 이하로 제한 
 	private String username; //아이디
 	
 	@Column(nullable = false, length =100) // 비밀번호를 길게하는 이유는 123456 => 해쉬(비밀번호 암호화)
@@ -52,7 +52,9 @@ public class User {
 	
 	//DynamicInsert사용하지않고 값을 넣기 
 	@Enumerated(EnumType.STRING) // db는 RoleType이라는게 없기 때문에 해당 enum이 string이라고 알려주어야함.
-	private RoleType role; //ADMIN, USER로 한정지음  
+	private RoleType role; //ADMIN, USER로 한정지음
+	
+	private String oauth; //kakao, google 등 OAuth 로그인을 통했을때 확인용 
 	
 	@CreationTimestamp // 시간이 자동입력 
 	private Timestamp createDate;
