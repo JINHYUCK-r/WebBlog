@@ -63,5 +63,6 @@ public class BoardService {
 		board.setContent(requestBoard.getContent());
 		// 해당 함수가 종료시 (서비스가 종료될때 ) 트랜잭션이 종료됨, 이때 더티체킹이 일어남. - 자동업데이트(flush)
 	}
+	
 
 }
