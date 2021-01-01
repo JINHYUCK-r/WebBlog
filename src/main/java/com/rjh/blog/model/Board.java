@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -59,6 +61,7 @@ public class Board {
 	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER) //Onetomany:하나의 게시글에는 여러개의 댓글이 달리기 때문 . 기본fetch전략이 lazy임(필요할때 들고올게). eager로 하는 이유는 위에 user과 content처럼 select할때 한번에 읽어오기 위해  
 	// mappedBy: 연관관계의주인이 아니다(fk가 아님 ).  db에 컬럼을 만들지 마라  Reply테이블에 있는 board를 가져와라 (이게 fk키가 된다.)
 	//selete 할때 join을 통해 값만 얻기위함. 
+	@JsonIgnoreProperties({"board"}) //안에 들어갔을때 얘는 무시하겠다. 
 	private  List<Reply> replys;
 	
 	@CreationTimestamp
