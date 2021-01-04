@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rjh.blog.config.auth.principalDetail;
 import com.rjh.blog.dto.ResponseDto;
 import com.rjh.blog.model.Board;
+import com.rjh.blog.model.Reply;
 import com.rjh.blog.model.RoleType;
 import com.rjh.blog.model.User;
 import com.rjh.blog.service.BoardService;
@@ -47,6 +48,14 @@ public class BoardApiController {
 	@PutMapping("/api/board/{id}")
 	public ResponseDto<Integer>update(@PathVariable int id, @RequestBody Board board){
 		boardService.edit(id, board);
+		
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+	
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> replySave(@PathVariable int boardId,@RequestBody Reply reply, @AuthenticationPrincipal principalDetail principal) { 
+	
+		boardService.replyWrite(principal.getUser(), boardId, reply);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}

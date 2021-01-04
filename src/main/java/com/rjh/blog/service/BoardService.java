@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rjh.blog.model.Board;
+import com.rjh.blog.model.Reply;
 import com.rjh.blog.model.RoleType;
 import com.rjh.blog.model.User;
 import com.rjh.blog.repository.BoardRepository;
+import com.rjh.blog.repository.ReplyRepository;
 import com.rjh.blog.repository.UserRepository;
 
 
@@ -26,6 +28,8 @@ public class BoardService {
 	
 	@Autowired
 	private BoardRepository boardRepository;
+	@Autowired
+	private ReplyRepository replyRepository;
 
 	
 	@Transactional 
@@ -62,6 +66,18 @@ public class BoardService {
 		board.setTitle(requestBoard.getTitle());
 		board.setContent(requestBoard.getContent());
 		// 해당 함수가 종료시 (서비스가 종료될때 ) 트랜잭션이 종료됨, 이때 더티체킹이 일어남. - 자동업데이트(flush)
+	}
+	
+	@Transactional
+	public void replyWrite(User user, int boardId, Reply requestReply) {
+		Board board = boardRepository.findById(boardId)
+		.orElseThrow(() ->{
+			return new IllegalArgumentException("댓글쓰기실패: 게시글 id를 찾을수 없습니다.");
+		});
+		requestReply.setUser(user);
+		requestReply.setBoard(board);
+		
+		replyRepository.save(requestReply);
 	}
 	
 

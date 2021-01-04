@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -62,6 +63,7 @@ public class Board {
 	// mappedBy: 연관관계의주인이 아니다(fk가 아님 ).  db에 컬럼을 만들지 마라  Reply테이블에 있는 board를 가져와라 (이게 fk키가 된다.)
 	//selete 할때 join을 통해 값만 얻기위함. 
 	@JsonIgnoreProperties({"board"}) //안에 들어갔을때 얘는 무시하겠다. 
+	@OrderBy("id desc") //id를 기준으로 내림차순  
 	private  List<Reply> replys;
 	
 	@CreationTimestamp
