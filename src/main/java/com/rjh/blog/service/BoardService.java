@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rjh.blog.dto.ReplySaveRequestDto;
 import com.rjh.blog.model.Board;
 import com.rjh.blog.model.Reply;
 import com.rjh.blog.model.RoleType;
@@ -30,6 +31,8 @@ public class BoardService {
 	private BoardRepository boardRepository;
 	@Autowired
 	private ReplyRepository replyRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	
 	@Transactional 
@@ -69,15 +72,32 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void replyWrite(User user, int boardId, Reply requestReply) {
-		Board board = boardRepository.findById(boardId)
+	public void replyWrite(ReplySaveRequestDto replySaveRequestDto) {
+		
+		User user = userRepository.findById(replySaveRequestDto.getUserId())
+				.orElseThrow(() ->{
+					return new IllegalArgumentException("댓글쓰기실패: 유저 id를 찾을수 없습니다.");
+				}); //영속화 
+
+		Board board = boardRepository.findById(replySaveRequestDto.getBoardId())
 		.orElseThrow(() ->{
 			return new IllegalArgumentException("댓글쓰기실패: 게시글 id를 찾을수 없습니다.");
-		});
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
+		}); //영속화 
 		
-		replyRepository.save(requestReply);
+		Reply  reply = Reply.builder()
+				.user(user)
+				.board(board)
+				.content(replySaveRequestDto.getContent())
+				.build();
+		/*		
+		//Reply 모델안에함수를 만들어서 간략화 시킬수도 있다.
+		Reply reply = new Reply();
+		reply.update(user, board, replySaveRequestDto.getContent());
+		*/
+		
+
+		
+		replyRepository.save(reply);
 	}
 	
 
