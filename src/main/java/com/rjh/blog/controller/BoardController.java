@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.rjh.blog.config.auth.principalDetail;
+import com.rjh.blog.model.Board;
 import com.rjh.blog.service.BoardService;
 
 @Controller  //return 할때 viewResolver 작동. 해당페이지로 model의 정보를 가지고 이동. 그리고 리턴값 앞뒤로 prefix,suffix를 붙여줌 
@@ -39,6 +41,7 @@ public class BoardController {
 	
 	@GetMapping("/board/{id}")
 	public String findById(@PathVariable int id, Model model) {
+		boardService.bCount(id);
 		model.addAttribute("board", boardService.readDetail(id));
 		
 		return "board/detail";

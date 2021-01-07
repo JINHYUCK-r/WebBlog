@@ -7,7 +7,8 @@
 	<div class="card m-2">
 		<div class="card-body">
 			<h4 class="card-title">${board.title}</h4>
-			<a href="/board/${board.id }" class="btn btn-primary">상세보기</a>
+			<a href="/board/${board.id }" class="btn btn-primary ">상세보기</a>
+			<div class="cnt">조회수 : ${board.count }</div>
 		</div>
 	</div>
 </c:forEach>

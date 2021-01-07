@@ -55,10 +55,12 @@ public class BoardService {
 	
 	@Transactional(readOnly = true)
 	public Board readDetail(int id) {
-		return boardRepository.findById(id)
+		Board board =  boardRepository.findById(id)
 				.orElseThrow(() ->{
 					return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을수 없습니다. ");
 				});
+		
+		return board;
 	}
 	
 	@Transactional
@@ -111,6 +113,11 @@ public class BoardService {
 	@Transactional
 	public void replyDelete(int replyId) {
 		replyRepository.deleteById(replyId);
+	}
+	
+	@Transactional
+	public void bCount(int boardId) {
+		boardRepository.bCount(boardId);
 	}
 	
 	
