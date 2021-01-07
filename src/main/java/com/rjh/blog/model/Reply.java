@@ -52,4 +52,12 @@ public class Reply {
 		setContent(content);
 	}
 
+	@Override
+	public String toString() {
+		return "Reply [id=" + id + ", content=" + content + ", board=" + board + ", user=" + user + ", createDate="
+				+ createDate + "]";
+	}
+	
+	
+
 }

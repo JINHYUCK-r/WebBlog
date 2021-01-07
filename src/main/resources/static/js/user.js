@@ -39,10 +39,15 @@ let index = {
 		//이렇게 데이터를 변환해서 할때 csrf 토큰이 생성되지 않기 때문에 스프링 시큐리티가 접근을 막을수 있다. 테스트 시에는 csrf를 비활성화 하면 된다. 
 		
 	}).done(function(resp){	//resp	에 UserApicontroller의 save함수의 리턴값 1이 담기게 된다. 
-		//정상이면 이부분이 실행 
+		//유니크 조건을 위반하거나회원가시 오류가 발생하면 
+		if(resp.status === 500){
+			alert("회원가입이 실패 하였습니다.");
+		}else{
+		//정상이면 이부분이 실행 			
 		alert("회원가입이 완료 되었습니다.");
 		//console.log(resp);
 		location.href = "/" //메인화면으로 이동 
+		}
 	}).fail(function(error){
 		//실패면 이 부분이 실행 
 		alert(JSON.stringify(error));
