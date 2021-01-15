@@ -26,6 +26,10 @@
 	  <groupId>org.springframework.security</groupId>
 	  <artifactId>spring-security-taglibs</artifactId>
 	</dependency> 
+			<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
 	
 	<!-- JSP 템플릿 엔진 -->
 	<!--스프링부트는 기본적으로  jsp를 지원하지않기 때문에 인식시키기위해 따로 설정필요  -->

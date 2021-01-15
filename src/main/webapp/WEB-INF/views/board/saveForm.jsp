@@ -8,7 +8,7 @@
 		</div>
 
 		<div class="form-group">
-			<textarea class="form-control summernote" rows="5" id="content"></textarea>
+			<textarea class="form-control summernote" rows="5" id="content" >value="${principal.user.id }"</textarea>
 		</div>
 	</form>
 		<button id="btn-save" class="btn btn-primary">글작성</button>

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.rjh.blog.config.auth.principalDetail;
 import com.rjh.blog.config.auth.principalDetailService;
+import com.rjh.blog.config.oauth.PrincipalOAuth2UserService;
 
 
 @Configuration //Bean 등록: 스프링 컨테이너에서 객체를 관리 할수 있게 하는 것(IoC관리 )
@@ -24,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private principalDetailService principalDetailService;
+	@Autowired
+	private PrincipalOAuth2UserService principalOAuth2UserService;
 	
 	 
 	@Bean
@@ -56,6 +59,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.csrf().disable() // csrf 토큰 비 활성화 (테스트시 걸어두는게 좋음 )
 			.authorizeRequests()			//요청이 들어오면 
+				.antMatchers("/user/**").authenticated()
+				.antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+				.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 				.antMatchers("/","/auth/**", "/js/**","/css/**","/image/**")	// /auth 이하 주소는 
 				.permitAll()							//모두 접근이 가능
 				.anyRequest()					//그외의 다른 모든 요청
@@ -64,8 +70,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.formLogin()
 				.loginPage("/auth/loginForm")	//우리가 만든 페이지로 이동. 로그인 버튼이 수행되면  
 				.loginProcessingUrl("/auth/loginProc") //스프링 시큐리티가 해당주소로 로그인을 가로채서 유저정보를 principalDetailService에 있는 loadUser~~에 던져줌. 대신 로그인 해줌 
-				.defaultSuccessUrl("/"); // 정상적으로 로그인 요청이 완료되면 이쪽으로 이동
+				.defaultSuccessUrl("/") // 정상적으로 로그인 요청이 완료되면 이쪽으로 이동
 		//		.failureUrl("/fail") 실패시에는 이렇게 이동하라고 만들수도 있다.
+				.and()
+				.oauth2Login()
+				.loginPage("/auth/loginForm")
+				.userInfoEndpoint()
+				.userService(principalOAuth2UserService);
 	}
 	
 }

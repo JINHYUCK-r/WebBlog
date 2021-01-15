@@ -2,9 +2,11 @@ package com.rjh.blog.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.rjh.blog.model.User;
 
@@ -13,13 +15,19 @@ import lombok.Getter;
 
 // 스프링 시큐리티가 로그인 요청을 가로채서 로그인을 진행하고완료가 되면 UserDetails 타입의 오브젝를 스프링시큐리티의 고유한 세션저장소에 저장한다. 
 @Getter
-public class principalDetail implements UserDetails {
+public class principalDetail implements UserDetails, OAuth2User {
 	private User user; //컴포지션 : 객체를 안에 품고있는것.   extends 하는건 상속 
+	private Map<String,Object> attributes;
 
 	//생성자
 	public principalDetail(User user) {
 		this.user = user; 
 	}
+	public principalDetail(User user, Map<String,Object> attributes) {
+		this.user = user;
+		this.attributes = attributes;
+	}
+	
 	
 	//UserDetails에 있는 함수들을 전부 오버라이딩 
 	@Override
@@ -79,6 +87,18 @@ public class principalDetail implements UserDetails {
 		});
 		//collectors.add(()->{return "ROLE"+user.getRole()}); 위에 것을 람다식으로 바꾼것. 들어갈수있는 파라미터와 함수식이 하나밖에 없기때문에 생략가능 
 		return collectors;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return attributes;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

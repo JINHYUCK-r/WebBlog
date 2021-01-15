@@ -37,7 +37,7 @@ public class User {
 	//오라클을 사용하면 시퀀스가 되는거고, mysql을 사용하면 auto-increment가 되는것 
 	private int id; //auto_increment 할것 
 	
-	@Column(nullable = false, length =100, unique = true)
+	@Column(nullable = false, length =150, unique = true)
 	// 널이 될수없음, 아이디의 길이를 100자 이하로 제한 
 	private String username; //아이디
 	
