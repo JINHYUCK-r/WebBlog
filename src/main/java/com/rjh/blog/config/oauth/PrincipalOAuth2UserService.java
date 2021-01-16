@@ -30,7 +30,7 @@ public class PrincipalOAuth2UserService  extends DefaultOAuth2UserService{
 	public principalDetail loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		
 		OAuth2User oauth2User = super.loadUser(userRequest);
-		String oauth = userRequest.getClientRegistration().getClientId(); //google
+		String oauth = userRequest.getClientRegistration().getRegistrationId(); //google
 		String oauthId = oauth2User.getAttribute("sub");
 		String username =  oauth + "_"+oauthId;
 		String password = bCryptPasswordEncoder.encode("암호화비밀번호");
