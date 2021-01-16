@@ -10,6 +10,9 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.rjh.blog.config.auth.principalDetail;
+import com.rjh.blog.config.oauth.provider.FacebookUserInfo;
+import com.rjh.blog.config.oauth.provider.GoogleUserInfo;
+import com.rjh.blog.config.oauth.provider.OAuth2UserInfo;
 import com.rjh.blog.model.RoleType;
 import com.rjh.blog.model.User;
 import com.rjh.blog.repository.UserRepository;
@@ -30,11 +33,20 @@ public class PrincipalOAuth2UserService  extends DefaultOAuth2UserService{
 	public principalDetail loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		
 		OAuth2User oauth2User = super.loadUser(userRequest);
-		String oauth = userRequest.getClientRegistration().getRegistrationId(); //google
-		String oauthId = oauth2User.getAttribute("sub");
+		OAuth2UserInfo oAuth2UserInfo = null;
+		if(userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+			oAuth2UserInfo = new GoogleUserInfo(oauth2User.getAttributes());
+		}else if(userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
+			oAuth2UserInfo = new FacebookUserInfo(oauth2User.getAttributes());
+		}else {
+			System.out.println("지원하지 않는 로그인입니다.");
+		}
+		
+		String oauth =  oAuth2UserInfo.getProvier();//google
+		String oauthId = oAuth2UserInfo.getProviderId();
 		String username =  oauth + "_"+oauthId;
 		String password = bCryptPasswordEncoder.encode("암호화비밀번호");
-		String email = oauth2User.getAttribute("email");
+		String email = oAuth2UserInfo.getEmail();
 
 		User userEntity = User.builder()
 				.username(username)
