@@ -1,5 +1,7 @@
 package com.rjh.blog.config.oauth;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.rjh.blog.config.auth.principalDetail;
 import com.rjh.blog.config.oauth.provider.FacebookUserInfo;
 import com.rjh.blog.config.oauth.provider.GoogleUserInfo;
+import com.rjh.blog.config.oauth.provider.NaverUserInfo;
 import com.rjh.blog.config.oauth.provider.OAuth2UserInfo;
 import com.rjh.blog.model.RoleType;
 import com.rjh.blog.model.User;
@@ -38,6 +41,8 @@ public class PrincipalOAuth2UserService  extends DefaultOAuth2UserService{
 			oAuth2UserInfo = new GoogleUserInfo(oauth2User.getAttributes());
 		}else if(userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
 			oAuth2UserInfo = new FacebookUserInfo(oauth2User.getAttributes());
+		}else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+			oAuth2UserInfo = new NaverUserInfo((Map<String, Object>) oauth2User.getAttributes().get("response"));
 		}else {
 			System.out.println("지원하지 않는 로그인입니다.");
 		}

@@ -26,6 +26,7 @@
 		<a href = "https://kauth.kakao.com/oauth/authorize?client_id=9245f2292bd208dd4f6dc64bf0ddc378&redirect_uri=http://localhost:8000/auth/kakao/callback&response_type=code"><img height = "38px" src="/image/kakao_login_button.png" /></a>
 		<a href = "/oauth2/authorization/google"><img height = "38px" src ="/image/google_login_button.png" ></a>
 		<a href = "/oauth2/authorization/facebook"><img height = "38px" src ="/image/facebook_login_button.png" > </a>
+		<a href = "/oauth2/authorization/naver"><img height = "38px" src ="/image/naver_login_button.png" ></a>
 	</form>
 </div>
 <!-- 전통적 로그인 할때 사용함 
