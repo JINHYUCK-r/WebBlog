@@ -42,7 +42,7 @@ public class BoardService {
 
 	
 	@Transactional 
-	public void write(Board board, User user) { //titel과 content 를 받음 
+	public void write(Board board, User user) { //title과 content 를 받음 
 		board.setCount(0);
 		board.setUser(user);
 		boardRepository.save(board);
