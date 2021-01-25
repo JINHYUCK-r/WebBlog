@@ -1,6 +1,6 @@
 # WebBlog
 ---
-##### com.rjh.blog
+##### [com.rjh.blog](https://github.com/JINHYUCK-r/WebBlog/tree/master/src/main/java/com/rjh/blog)
  + config
    - auth
      + princlpalDetail : 로그인 사용자의 정보를 저장 
@@ -34,12 +34,13 @@
    - BoardService : 글작성, 읽기 등 board와 관련된 각종 역할을 수행 
    - UserService : 회원가입, 수정 등 User와 관련된 각종 역할을 수행 
 ---
-##### resources
+##### [resources](https://github.com/JINHYUCK-r/WebBlog/tree/master/src/main/resources)
++ application.yml : 여러 설정등록. yml파일을 통한 가독성의 향상 
 + js : 화면(View)에서 일어난 이벤트를 넘겨받아서 데이터를 가공 및 처리하여 넘겨줌
   - board.js   
   - user.js
 ---
-##### WEB-INF : 부트스트랩을 활용한 화면 구현 
+##### [WEB-INF](https://github.com/JINHYUCK-r/WebBlog/tree/master/src/main/webapp/WEB-INF/views) : 부트스트랩을 활용한 화면 구현 
 + board
   - detail : 글 상세보기 화면. 댓글작성 및 보기,삭제 가능 
   - saveForm : 글쓰기 화면. summernote 사용 
