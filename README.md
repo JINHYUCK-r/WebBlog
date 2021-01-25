@@ -52,5 +52,5 @@
   - joinForm : 회원가입 
   - loginForm : 로그인
   - updateForm : 회원정보 수정
-+ index
++ index : 게시판 메인 화면. 글목록보여주기 
 
